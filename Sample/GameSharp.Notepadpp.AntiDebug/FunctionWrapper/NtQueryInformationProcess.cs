@@ -18,14 +18,14 @@ namespace GameSharp.Notepadpp.FunctionWrapper
         {
             GameSharpProcess process = GameSharpProcess.Instance;
             ModulePointer ntdll = process.Modules["ntdll.dll"];
-            IMemoryPointer ntQueryInformationProcessPtr = ntdll.GetProcAddress("NtQueryInformationProcess");
+            MemoryPointer ntQueryInformationProcessPtr = ntdll.GetProcAddress("NtQueryInformationProcess");
             return ntQueryInformationProcessPtr.ToDelegate<NtQueryInformationProcessDelegate>();
         }
 
-        public uint Call(IntPtr handle, ProcessInformationClass pic, out IMemoryPointer result, int resultLength, out IMemoryPointer bytesRead)
+        public uint Call(IntPtr handle, ProcessInformationClass pic, out MemoryPointer result, int resultLength, out MemoryPointer bytesRead)
         {
-            IMemoryPointer bytesReadInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
-            IMemoryPointer resultInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
+            MemoryPointer bytesReadInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
+            MemoryPointer resultInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
 
             uint retval = Call<uint>(handle, pic, resultInternal.Address, (uint)resultLength, bytesReadInternal.Address);
 

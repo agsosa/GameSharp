@@ -18,7 +18,7 @@ namespace GameSharp.Notepadpp.FunctionWrapper
         {
             IProcess process = GameSharpProcess.Instance;
             ModulePointer kernel32 = process.Modules["kernel32.dll"];
-            IMemoryPointer IsDebuggerPresentPtr = kernel32.GetProcAddress("IsDebuggerPresent");
+            MemoryPointer IsDebuggerPresentPtr = kernel32.GetProcAddress("IsDebuggerPresent");
             return IsDebuggerPresentPtr.ToDelegate<IsDebuggerPresentDelegate>();
         }
 

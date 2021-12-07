@@ -91,7 +91,11 @@ namespace GameSharp.External
 
             foreach (ProcessModule processModule in Native.Modules)
             {
-                modules.Add(processModule.ModuleName.ToLower(), new ExternalModulePointer(this, processModule));
+                Console.WriteLine(processModule.ModuleName);
+                if (!modules.ContainsKey(processModule.ModuleName.ToLower()))
+                {
+                    modules.Add(processModule.ModuleName.ToLower(), new ExternalModulePointer(this, processModule));
+                }
             }
 
             return modules;

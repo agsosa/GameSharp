@@ -10,7 +10,7 @@ namespace GameSharp.Notepadpp.FunctionWrapper
 {
     public class InjectedNtQueryInformationProcess : SafeFunction
     {
-        private static readonly IMemoryPointer Allocation = GameSharpProcess.Instance.AllocateManagedMemory(100);
+        private static readonly MemoryPointer Allocation = GameSharpProcess.Instance.AllocateManagedMemory(100);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate uint InjectedNtQueryInformationProcessDelegate(IntPtr processHandle, int processInformationClass, [Out] IntPtr processInformation,
@@ -29,10 +29,10 @@ namespace GameSharp.Notepadpp.FunctionWrapper
             return Allocation.ToDelegate<InjectedNtQueryInformationProcessDelegate>();
         }
 
-        public uint Call(IntPtr handle, ProcessInformationClass pic, out IMemoryPointer result, int resultLength, out IMemoryPointer bytesRead)
+        public uint Call(IntPtr handle, ProcessInformationClass pic, out MemoryPointer result, int resultLength, out MemoryPointer bytesRead)
         {
-            IMemoryPointer bytesReadInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
-            IMemoryPointer resultInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
+            MemoryPointer bytesReadInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
+            MemoryPointer resultInternal = GameSharpProcess.Instance.AllocateManagedMemory(resultLength);
 
             uint retval = Call<uint>(handle, pic, resultInternal.Address, (uint)resultLength, bytesReadInternal.Address);
 

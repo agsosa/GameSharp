@@ -76,7 +76,10 @@ namespace GameSharp.Internal
 
             foreach (ProcessModule processModule in Native.Modules)
             {
-                modules.Add(processModule.ModuleName.ToLower(), new Module.InternalModulePointer(processModule));
+                if (!modules.ContainsKey(processModule.ModuleName.ToLower()))
+                {
+                    modules.Add(processModule.ModuleName.ToLower(), new Module.InternalModulePointer(processModule));
+                }
             }
 
             return modules;

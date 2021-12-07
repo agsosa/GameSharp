@@ -11,14 +11,23 @@ namespace GameSharp.Notepadpp.Injector
     {
         private static void Main(string[] args)
         {
-            Process notepadpp = Process.GetProcessesByName("notepad++").FirstOrDefault();
-
-            if (notepadpp == null)
+            Console.WriteLine("Finding processes");
+            foreach (var process in Process.GetProcessesByName("archeage"))
             {
-                // The process we are injecting into.
-                notepadpp = Process.Start("notepad++");
-                notepadpp.WaitForInputIdle();
+                Console.WriteLine("Process" + process);
             }
+            Console.WriteLine("Finding processes done");
+            Process notepadpp = Process.GetProcessesByName("archeage").FirstOrDefault();
+
+            Console.WriteLine(notepadpp);
+
+           /* if (notepadpp == null)
+            {
+                Console.WriteLine("Trying to open the process!");
+                // The process we are injecting into.
+                notepadpp = Process.Start("notepad.exe");
+                notepadpp.WaitForInputIdle();
+            }*/
 
             GameSharpProcess gameSharp = new GameSharpProcess(notepadpp);
 
